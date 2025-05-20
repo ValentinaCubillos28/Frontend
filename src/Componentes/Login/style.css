@@ -1,0 +1,130 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+    
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #ffffff;
+}
+
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw; 
+}
+
+header {
+  background-color: #5db95d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+}
+
+.logo .ball {
+  width: 45px;
+  height: 45px;
+  background-color: white;
+  border-radius: 50%;
+  border: 5px solid green;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: white;
+  font-weight: bold;
+}
+
+.hamburger {
+  font-size: 24px;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  padding: 30px;
+  background-color: #ffffff;
+}
+
+.form-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.login-box, .register-box {
+  background-color: #5db95d;
+  padding: 30px 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+}
+
+.login-box .icon-user {
+  background-color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: white;
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 3px;
+}
+
+.remember-me {
+  color: white;
+  font-size: 12px;
+  align-self: flex-start;
+  margin: 10px 0;
+}
+
+.btn {
+  background-color: #1f4e1f;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.link {
+  font-size: 12px;
+  color: white;
+  margin-top: 10px;
+  text-decoration: underline;
+}
+
+footer {
+  background-color: #5db95d;
+  text-align: center;
+  padding: 30px;
+  color: white;
+  font-size: 20px;
+}
