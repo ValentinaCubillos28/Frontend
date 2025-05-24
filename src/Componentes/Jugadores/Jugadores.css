@@ -1,0 +1,199 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #f8f9fa;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.jugadores-container {
+  padding: 40px 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+.jugadores-container h2 {
+  color: #16a085;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 20px 0 8px 0;
+  text-align: center;
+}
+
+.jugadores-container p {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+  width: fit-content;
+  justify-items: center;
+}
+
+.jugador-card {
+  position: relative;
+  padding: 40px;
+  background-color: white;
+  border-radius: 15px;
+  border: 2px solid #e9ecef;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 260px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.jugador-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.jugador-card.seleccionado {
+  border-color: #2ecc71;
+  background-color: rgba(46, 204, 113, 0.05);
+}
+
+.star {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+  color: #ccc;
+}
+
+.jugador-card.seleccionado .star {
+  color: #2ecc71;
+}
+
+.jugador-card.seleccionado .star::before {
+  content: "★";
+}
+
+.star::before {
+  content: "☆";
+}
+
+.imagen-container {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  border: 3px solid #e9ecef;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+}
+
+.jugador-card.seleccionado .imagen-container {
+  border-color: #2ecc71;
+}
+
+.imagen-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.jugador-card p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2c3e50;
+  margin: 0;
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+
+.contador {
+  font-size: 18px;
+  color: #666;
+  font-weight: 500;
+  margin: 16px 0;
+  text-align: center;
+}
+
+.confirmar-btn {
+  width: 300px;
+  padding: 16px;
+  background: #2ecc71;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  margin: 16px 0 40px 0;
+}
+
+.confirmar-btn:hover {
+  background-color: #27ae60;
+}
+
+.confirmar-btn:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .jugador-card {
+    width: 160px;
+    height: 200px;
+  }
+  
+  .imagen-container {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .confirmar-btn {
+    width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .jugador-card {
+    width: 200px;
+    height: 220px;
+  }
+  
+  .confirmar-btn {
+    width: 200px;
+  }
+}

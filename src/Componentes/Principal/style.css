@@ -25,6 +25,8 @@ body {
 .logo {
   font-size: 18px;
   font-weight: bold;
+  background-color: #4CAF50;
+  border-color: #4CAF50;
 }
 
 .principal-header nav a {

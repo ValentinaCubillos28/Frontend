@@ -1,0 +1,108 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.mi-equipo-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.titulo {
+  color: #2e7d32;
+}
+
+.subtitulo {
+  margin-bottom: 20px;
+}
+
+.jugadores-grid {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+} 
+
+.jugador-box {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #ffffff;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.jugador-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 8px;
+}
+
+.circle-nombre {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #e8f5e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px auto;
+  font-size: 14px;
+  font-weight: bold;
+  color: #2e7d32;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.nombre {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.equipo {
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.promedios {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.prom {
+  background-color: #e0f2f1;
+  color: #1b5e20;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.aviso {
+  margin-top: 25px;
+  padding: 12px;
+  background-color: #fff8c4;
+  border: 1px solid #ffe58f;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.puntaje {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.puntaje-num {
+  color: #2e7d32;
+}

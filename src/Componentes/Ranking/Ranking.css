@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.ranking-container {
+  height: 100%;
+  padding: 2rem;
+  background-color: #fdfdfd;
+}
+
+.ranking-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.top-team {
+  border-color: #4caf50;
+  background-color: #f1fdf3;
+}
+
+.team-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.ranking-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ranking-change {
+  font-weight: bold;
+}
+
+.ranking-change.up {
+  color: green;
+}
+
+.ranking-change.down {
+  color: red;
+}
+
+.ranking-footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-style: italic;
+  color: #666;
+}

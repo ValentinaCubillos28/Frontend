@@ -8,20 +8,18 @@ const Principal = () => {
   return (
     <div className="principal-container">
       <header className="principal-header">
-        <div className="logo">⚽ ADMIN</div>
+        <button className="logo" onClick={() => navigate('/panel')}>⚽ ADMIN</button>
         <nav>
           <Link to="/registro">REGISTRARSE</Link>
           <Link to="/login">INICIAR SESIÓN</Link>
           <a href="#">AYUDA</a>
         </nav>
       </header>
-
       <main className="principal-content">
         <h1>CREA TU EQUIPO DE FUTBOL FANTASY</h1>
         <h1>Y COMPITE</h1>
         <button onClick={() => navigate('/login')}>COMIENZA AHORA</button>
       </main>
-
       <footer className="principal-footer">
         ©Football Fantasy
       </footer>
