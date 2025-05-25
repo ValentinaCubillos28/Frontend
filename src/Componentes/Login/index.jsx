@@ -42,7 +42,11 @@ const Login = () => {
     console.log('onRegister called with data:', data);
     const result = await signUp(data.email, data.password, data.username);
     if (result.success) {
-      navigate('/Inicio');
+      if (result.needsEmailVerification) {
+        navigate('/verificar-email');
+      } else {
+        navigate('/Inicio');
+      }
     }
   };
 
@@ -261,7 +265,6 @@ const Login = () => {
                 className="btn"
                 whileHover={{ scale: 1.05, boxShadow: '0px 4px 20px rgba(30,80,30,0.2)' }}
                 whileTap={{ scale: 0.97 }}
-                disabled={loading}
               >
                 {loading ? 'CARGANDO...' : 'REGISTRARSE'}
               </motion.button>
