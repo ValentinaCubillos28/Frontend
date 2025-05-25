@@ -11,6 +11,9 @@ import Ranking from './Componentes/Ranking/Ranking';
 import PerfilUsuario from './Componentes/Perfil/PerfilUsuario';
 import PlayerPanel from './Componentes/Futbol/PlayerPanel';
 
+
+
+
 const App = () => {
   return (
     <Router>
