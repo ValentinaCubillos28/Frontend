@@ -1,0 +1,109 @@
+.player-panel {
+  width: 600px;
+  height: 600px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 50px auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.menu-bar {
+  background-color: #4CAF50;
+  padding: 15px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  font-weight: bold;
+  text-align: right;
+  color: white;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.player-info {
+  margin: 20px 0;
+}
+
+.player-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #4CAF50;
+  display: block;
+  margin: 0 auto;
+}
+
+.player-name {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.scores-section {
+  margin: 20px 0;
+}
+
+.scores-section h3 {
+  color: #4caf50;
+}
+
+.scores {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.score {
+  text-align: center;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  background-color: #4CAF50;
+  border-radius: 50%;
+  margin: 0 auto 5px auto;
+}
+
+.favorite-section {
+  margin: 20px 0 10px 0;
+}
+
+.favorite-section h3 {
+  color: #4caf50;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.star {
+  font-size: 24px;
+  color: lightgreen;
+  cursor: pointer;
+}
+
+.star.active {
+  font-size: 24px;
+  color: #4caf50;
+  cursor: pointer;
+}
+
+.footer {
+  background-color: #4CAF50;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  margin-top: auto;
+}

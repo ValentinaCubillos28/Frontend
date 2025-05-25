@@ -1,3 +1,4 @@
+// Inicio.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Inicio.css';
@@ -12,12 +13,15 @@ const Inicio = () => {
       navigate('/Ranking');
     } else if (section === 'MiEquipo') {
       navigate('/MiEquipo');
+    } else if (section === 'Perfil') {
+      navigate('/Perfil');
     }
   };
 
   const profileImageSvg = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRTBFMEUwIi8+CjxjaXJjbGUgY3g9IjYwIiBjeT0iNDUiIHI9IjIwIiBmaWxsPSIjNjY2Ii8+CjxwYXRoIGQ9Ik0zMCA5MEMzMCA3NyA0NCA2NSA2MCA2NVM5MCA3NyA5MCA5MFoiIGZpbGw9IiM2NjYiLz4KPC9zdmc+";
-  const playerImageSvg = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRDBEMEQwIi8+CjxjaXJjbGUgY3g9IjQwIiBjeT0iMzAiIHI9IjEyIiBmaWxsPSIjOTk5Ii8+CjxwYXRoIGQ9Ik0yMCA2MEMyMCA1MSAyOS4xIDQ0IDQwIDQ0UzYwIDUxIDYwIDYwWiIgZmlsbD0iIzk5OSIvPgo8L3N2Zz4=";
-  const femalePlayerImageSvg = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRDBEMUQwIi8+CjxwYXRoIGQ9Ik00MCAyMEM0NC40IDIwIDQ4IDIzLjYgNDggMjhTNDQuNCAzNiA0MCAzNlMzMiAzMi40IDMyIDI4UzM1LjYgMjAgNDAgMjBaIiBmaWxsPSIjOTk5Ii8+CjxwYXRoIGQ9Ik0yMCA2MEMyMCA1MS4yIDI5LjEgNDQgNDAgNDRTNjAgNTEuMiA2MCA2MFoiIGZpbGw9IiM5OTkiLz4KPC9zdmc+";
+
+  const playerImageSvg = "data:image/svg+xml;base64,...";
+  const femalePlayerImageSvg = "data:image/svg+xml;base64,...";
 
   const handlePlayerClick = (player) => {
     console.log(`Clicked on player ${player}`);
@@ -27,9 +31,9 @@ const Inicio = () => {
     <div className="inicio">
       {/* Header */}
       <header className="inicio-header">
-        <span>MI PERFIL</span>
-        <span className="header-spacing">CONFIGURACIÓN</span>
-        <span>AYUDA</span>
+        <button className="header-button" onClick={() => handleSectionClick('Perfil')}>MI PERFIL</button>
+        <button className="header-button" onClick={() => console.log('Configuración')}>CONFIGURACIÓN</button>
+        <button className="header-button" onClick={() => console.log('Ayuda')}>AYUDA</button>
       </header>
 
       {/* Contenido principal */}
@@ -86,6 +90,7 @@ const Inicio = () => {
             <button className="jugador-button" onClick={() => handlePlayerClick(3)}>Button</button>
           </div>
         </div>
+
         <br />
       </div>
 

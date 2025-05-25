@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import './Jugadores.css';
 
 const jugadores = [
@@ -38,6 +38,10 @@ export default function Jugadores() {
     );
   };
 
+  const irAPlayerPanel = (jugador) => {
+    navigate('/PlayerPanel', { state: { jugador } });
+  };
+
   const confirmarEquipo = () => {
     if (seleccionados.length === 5) {
       localStorage.setItem('miEquipo', JSON.stringify(seleccionados));
@@ -54,17 +58,20 @@ export default function Jugadores() {
       
       <div className="grid">
         {jugadores.map((j) => (
-          <div
-            key={j.nombre}
-            className={`jugador-card ${
-              seleccionados.includes(j.nombre) ? 'seleccionado' : ''
-            }`}
-            onClick={() => toggleJugador(j.nombre)}
-          >
-            <div className="star"></div>
-            <div className="imagen-container">
+          <div key={j.nombre} className={`jugador-card ${seleccionados.includes(j.nombre) ? 'seleccionado' : ''}`}>
+            
+            <div
+              className="star"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleJugador(j.nombre);
+              }}
+            ></div>
+
+            <div className="imagen-container" onClick={() => irAPlayerPanel(j)}>
               <img src={`/img/${j.imagen}`} alt={j.nombre} />
             </div>
+
             <p>{j.nombre}</p>
           </div>
         ))}

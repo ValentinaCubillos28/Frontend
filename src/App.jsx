@@ -8,6 +8,8 @@ import Panel from './Componentes/Panel';
 import Puntajes from './Componentes/Puntajes';
 import MiEquipo from './Componentes/MiEquipo/MiEquipo';
 import Ranking from './Componentes/Ranking/Ranking';
+import PerfilUsuario from './Componentes/Perfil/PerfilUsuario';
+import PlayerPanel from './Componentes/Futbol/PlayerPanel';
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
         <Route path="/Puntajes" element={<Puntajes />} />
         <Route path="/MiEquipo" element={<MiEquipo />} />
         <Route path="/Ranking" element={<Ranking />} />
+        <Route path="/Perfil" element={<PerfilUsuario />} />
+        <Route path="/PlayerPanel" element={<PlayerPanel />} />
       </Routes>
     </Router>
   );
