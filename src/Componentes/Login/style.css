@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -9,8 +8,8 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: 'Courier New', Courier, monospace;
-  background-color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f6f8;
 }
 
 .contenedor {
@@ -21,19 +20,20 @@ html, body {
 }
 
 header {
-  background-color: #5db95d;
+  background-color: #4CAF50;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 30px;
+  padding: 15px 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo .ball {
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   background-color: white;
   border-radius: 50%;
-  border: 5px solid green;
+  border: 4px solid #388E3C;
 }
 
 .menu {
@@ -41,11 +41,13 @@ header {
   align-items: center;
   gap: 20px;
   color: white;
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .hamburger {
-  font-size: 24px;
+  font-size: 28px;
+  cursor: pointer;
 }
 
 main {
@@ -54,77 +56,182 @@ main {
   justify-content: center;
   align-items: center; 
   padding: 30px;
-  background-color: #ffffff;
+  background-color: #f4f6f8;
 }
 
 .form-container {
   display: flex;
   gap: 40px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .login-box, .register-box {
-  background-color: #5db95d;
+  background-color: #ffffff;
   padding: 30px 20px;
-  border-radius: 5px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 300px;
+  width: 320px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .login-box .icon-user {
-  background-color: white;
+  background-color: #e0e0e0;
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  margin-bottom: 10px;
+  width: 70px;
+  height: 70px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h2 {
-  color: white;
+  color: #333;
   margin-bottom: 20px;
+  font-size: 1.8rem;
 }
 
 input[type="text"],
 input[type="password"],
 input[type="email"] {
   width: 100%;
-  padding: 8px;
-  margin: 5px 0;
-  border: none;
-  border-radius: 3px;
+  padding: 12px 12px 12px 40px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+  border-color: #4CAF50;
+  outline: none;
 }
 
 .remember-me {
-  color: white;
-  font-size: 12px;
+  color: #555;
+  font-size: 0.9rem;
   align-self: flex-start;
   margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input[type="checkbox"] {
+  margin-right: 5px;
 }
 
 .btn {
-  background-color: #1f4e1f;
+  background-color: #388E3C;
   color: white;
-  padding: 10px;
+  padding: 12px;
   width: 100%;
   border: none;
   border-radius: 5px;
-  margin-top: 10px;
+  margin-top: 15px;
   cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+  background-color: #2E7D32;
 }
 
 .link {
-  font-size: 12px;
-  color: white;
-  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 15px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #333;
   text-decoration: underline;
 }
 
 footer {
-  background-color: #5db95d;
+  background-color: #4CAF50;
   text-align: center;
-  padding: 30px;
+  padding: 20px;
   color: white;
-  font-size: 20px;
+  font-size: 1rem;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el contenedor del input con ícono */
+.input-container {
+  position: relative;
+  width: 100%;
+  margin: 8px 0;
+}
+
+/* Estilos para el ícono dentro del input */
+.input-container .input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #777;
+  font-size: 1.2rem;
+}
+
+/* -------------------- Responsive Design -------------------- */
+@media (max-width: 768px) {
+  header {
+    padding: 10px 20px; /* Reducir padding del header en pantallas pequeñas */
+  }
+
+  .menu {
+    gap: 15px; /* Reducir espacio entre elementos del menú */
+  }
+
+  main {
+    padding: 20px; /* Reducir padding del main */
+  }
+
+  .form-container {
+    gap: 20px; /* Reducir el espacio entre las cajas de formulario cuando se apilan */
+    flex-direction: column; /* Asegurar que las cajas se apilen */
+    align-items: center; /* Centrar las cajas apiladas */
+  }
+
+  .login-box, .register-box {
+    width: 95%; /* Permitir que las cajas ocupen casi todo el ancho */
+    max-width: 350px; /* Pero no más de un ancho razonable */
+    padding: 25px 15px; /* Ajustar padding interno de las cajas */
+  }
+
+  h2 {
+    font-size: 1.5rem; /* Reducir tamaño del título */
+  }
+
+  .btn {
+    font-size: 1rem; /* Reducir tamaño de fuente del botón */
+    padding: 10px; /* Ajustar padding del botón */
+  }
+
+  footer {
+    padding: 15px; /* Reducir padding del footer */
+    font-size: 0.9rem; /* Reducir tamaño de fuente del footer */
+  }
+
+  .input-container .input-icon {
+      font-size: 1rem; /* Reducir tamaño del ícono */
+      left: 10px; /* Ajustar posición del ícono */
+  }
+  
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
+      padding: 10px 10px 10px 35px; /* Ajustar padding del input para el ícono reducido */
+  }
+
 }
