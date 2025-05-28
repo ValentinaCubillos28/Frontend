@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase';
 export const useAuthStore = create((set, get) => ({
   user: null,
   session: null,
-  loading: true,
+                         loading: false,
   error: null,
 
   setUser: (user) => set({ user }),
