@@ -159,10 +159,10 @@ const RegisterForm = () => {
           whileTap={{ scale: 0.97 }}
           disabled={isSubmitting} // Usar el estado local de submitting
         >
-          {isSubmitting ? 'REGISTRANDO...' : 'REGISTRARSE'} // Texto basado en estado local
+          {isSubmitting ? 'REGISTRANDO...' : 'REGISTRARSE'} 
         </motion.button>
 
-        {error && <span className="error-message">{error}</span>} // Mantener visualización de error
+        {error && <span className="error-message">{error}</span>} 
       </form>
     </motion.div>
   );
