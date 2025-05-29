@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; 
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaLock, FaEnvelope, FaTimes } from 'react-icons/fa'; // Importar solo los iconos necesarios para Login
@@ -10,9 +10,11 @@ import './style.css'; // Importar el archivo CSS
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { signIn, loading, error } = useAuthStore(); // Obtener solo signIn, loading, error
+  const { signIn, error } = useAuthStore(); // No necesitamos 'loading' global aquí
 
-  console.log('LoginForm component rendered. Loading state:', loading);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Estado de submitting local
+
+  console.log('LoginForm component rendered. Local submitting state:', isSubmitting);
 
   const {
     register: registerLogin,
@@ -27,9 +29,14 @@ const LoginForm = () => {
   const onLogin = async (data) => {
     console.log('*** onLogin function called ***', data);
     console.log('onLogin called with data:', data);
-    const result = await signIn(data.email, data.password);
-    if (result.success) {
-      navigate('/Inicio');
+    setIsSubmitting(true); // Activar estado de submitting
+    try {
+      const result = await signIn(data.email, data.password);
+      if (result.success) {
+        navigate('/Inicio');
+      }
+    } finally {
+      setIsSubmitting(false); // Desactivar estado de submitting al finalizar
     }
   };
 
@@ -107,9 +114,9 @@ const LoginForm = () => {
           className="btn" 
           whileHover={{ scale: 1.05, boxShadow: '0px 4px 20px rgba(30,80,30,0.2)' }}
           whileTap={{ scale: 0.97 }}
-          disabled={loading}
+          disabled={isSubmitting}
         >
-          {loading ? 'CARGANDO...' : 'INGRESAR'}
+          {isSubmitting ? 'INGRESANDO...' : 'INGRESAR'}
         </motion.button>
 
         {error && <span className="error-message">{error}</span>}

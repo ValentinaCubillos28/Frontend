@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; 
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaUser, FaLock, FaEnvelope, FaTimes } from 'react-icons/fa'; // Importar solo los iconos necesarios para Register
@@ -10,9 +10,11 @@ import './style.css'; // Importar el archivo CSS
 
 const RegisterForm = () => {
   const navigate = useNavigate();
-  const { signUp, loading, error } = useAuthStore(); // Obtener solo signUp, loading, error
+  const { signUp, error } = useAuthStore(); // No necesitamos 'loading' global aquí
 
-  console.log('RegisterForm component rendered. Loading state:', loading);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Estado de submitting local
+
+  console.log('RegisterForm component rendered. Local submitting state:', isSubmitting);
 
   const {
     register: registerRegister,
@@ -26,13 +28,18 @@ const RegisterForm = () => {
 
   const onRegister = async (data) => {
     console.log('onRegister called with data:', data);
-    const result = await signUp(data.email, data.password, data.username);
-    if (result.success) {
-      if (result.needsEmailVerification) {
-        navigate('/verificar-email');
-      } else {
-        navigate('/Inicio'); // Redirigir al inicio si no requiere verificación (opcional, depende de tu flujo)
+    setIsSubmitting(true); // Activar estado de submitting
+    try {
+      const result = await signUp(data.email, data.password, data.username);
+      if (result.success) {
+        if (result.needsEmailVerification) {
+          navigate('/verificar-email');
+        } else {
+          navigate('/Inicio'); // Redirigir al inicio si no requiere verificación (opcional, depende de tu flujo)
+        }
       }
+    } finally {
+      setIsSubmitting(false); // Desactivar estado de submitting al finalizar
     }
   };
 
@@ -150,9 +157,9 @@ const RegisterForm = () => {
           className="btn"
           whileHover={{ scale: 1.05, boxShadow: '0px 4px 20px rgba(30,80,30,0.2)' }}
           whileTap={{ scale: 0.97 }}
-          disabled={loading} // Mantener disabled por loading
+          disabled={isSubmitting} // Usar el estado local de submitting
         >
-          {loading ? 'CARGANDO...' : 'REGISTRARSE'}
+          {isSubmitting ? 'REGISTRANDO...' : 'REGISTRARSE'} // Texto basado en estado local
         </motion.button>
 
         {error && <span className="error-message">{error}</span>} // Mantener visualización de error
