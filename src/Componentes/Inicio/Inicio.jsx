@@ -3,10 +3,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaUser, FaCog, FaQuestionCircle, FaUsers, FaTrophy, FaFutbol } from 'react-icons/fa';
+import { useAuthStore } from '../../store/authStore';
 import './Inicio.css';
 
 const Inicio = () => {
   const navigate = useNavigate();
+  const { user } = useAuthStore();
 
   const handleSectionClick = (section) => {
     if (section === 'Jugadores') {
@@ -46,7 +48,7 @@ const Inicio = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, type: 'spring' }}
         >
-          BIENVENIDO XXXXX
+          BIENVENIDO {user?.user_metadata?.username || user?.email || 'Usuario'}
         </motion.h1>
 
         {/* Perfil */}

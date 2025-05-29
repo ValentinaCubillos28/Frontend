@@ -68,6 +68,7 @@ header {
 main {
   flex: 1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
@@ -79,27 +80,39 @@ main {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
+  justify-content: center;
 }
 
 .login-box,
 .register-box {
   flex: 1;
   background: rgba(255, 255, 255, 0.05);
-  padding: 2rem;
+  padding: 3rem 2.5rem;
   border-radius: 15px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.login-box h2, .register-box h2 {
+  margin-bottom: 2.5rem;
+  font-size: 2rem;
+  color: #4CAF50;
 }
 
 .icon-user {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   background: linear-gradient(45deg, #4CAF50, #45a049);
   border-radius: 50%;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto 2rem;
   position: relative;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
 }
 
 .icon-user::after {
@@ -108,109 +121,172 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   background: #fff;
   border-radius: 50%;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: #4CAF50;
-  font-size: 1.8rem;
-  font-weight: 600;
-}
-
 .input-container {
   position: relative;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
+  width: 100%;
 }
 
 .input-icon {
   position: absolute;
-  left: 1rem;
+  left: 1.2rem;
   top: 50%;
   transform: translateY(-50%);
   color: #4CAF50;
+  font-size: 1.2rem;
+  pointer-events: none;
 }
 
 input {
   width: 100%;
-  padding: 1rem 1rem 1rem 3rem;
-  border: none;
+  padding: 1.1rem 1.1rem 1.1rem 3.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
   font-size: 1rem;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
 }
 
 input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #4CAF50;
   box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
 }
 
 input.error {
-  border: 2px solid #ff4444;
-  background: rgba(255, 68, 68, 0.1);
+  border-color: #ff4444;
+  background: rgba(255, 68, 68, 0.15);
 }
 
 .error-icon {
   position: absolute;
-  right: 1rem;
+  right: 1.2rem;
   top: 50%;
   transform: translateY(-50%);
   color: #ff4444;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 .error-message {
-  color: #ff4444;
-  font-size: 0.9rem;
+  color: #ff6666;
+  font-size: 0.95rem;
   margin-top: -1rem;
   margin-bottom: 1rem;
   display: block;
+  text-align: left;
+  width: 100%;
+  padding-left: 3.5rem;
 }
 
 .remember-me {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   cursor: pointer;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.remember-me input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.remember-me input[type="checkbox"]:checked {
+  background: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.remember-me input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.2s ease;
+}
+
+.remember-me input[type="checkbox"]:checked::after {
+  transform: rotate(45deg) scale(1);
 }
 
 .btn {
   width: 100%;
-  padding: 1rem;
+  padding: 1.2rem;
   border: none;
   border-radius: 8px;
   background: linear-gradient(45deg, #4CAF50, #45a049);
   color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  text-transform: uppercase;
 }
 
 .btn:hover {
   background: linear-gradient(45deg, #45a049, #4CAF50);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.btn:disabled {
+  background: rgba(76, 175, 80, 0.5);
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .link {
   display: block;
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   color: #4CAF50;
   text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.3s;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
 }
 
 .link:hover {
+  color: #66bb6a;
+  text-decoration: underline;
+}
+
+.toggle-form-button {
+  margin-top: 2rem;
+  background: none;
+  border: none;
+  color: #4CAF50;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.toggle-form-button:hover {
   color: #45a049;
+  text-decoration: underline;
 }
 
 footer {
@@ -219,16 +295,19 @@ footer {
   background: rgba(0, 0, 0, 0.2);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
+  margin-top: auto;
 }
 
 @media (max-width: 768px) {
   .form-container {
     flex-direction: column;
+    gap: 1.5rem;
   }
 
   .login-box,
   .register-box {
     width: 100%;
+    padding: 2.5rem 2rem;
   }
 
   header {
@@ -237,6 +316,78 @@ footer {
 
   .menu span {
     display: none;
+  }
+
+  main {
+    padding: 1.5rem;
+  }
+
+  .icon-user {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1.5rem;
+  }
+
+  .icon-user::after {
+    width: 35px;
+    height: 35px;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+  }
+
+  .input-icon {
+    left: 1rem;
+    font-size: 1.1rem;
+  }
+
+  input {
+    padding: 1rem 1rem 1rem 3rem;
+    font-size: 0.95rem;
+  }
+
+  .error-icon {
+    right: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .error-message {
+    font-size: 0.9rem;
+    padding-left: 3rem;
+  }
+
+  .remember-me {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .remember-me input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+  }
+
+  .remember-me input[type="checkbox"]::after {
+    top: 1.5px;
+    left: 3px;
+    width: 4px;
+    height: 8px;
+  }
+
+  .btn {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .link {
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  .toggle-form-button {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
   }
 }
 

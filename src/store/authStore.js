@@ -68,15 +68,17 @@ export const useAuthStore = create((set, get) => ({
     try {
       set({ loading: true, error: null });
       console.log('Attempting sign in...', { email });
-      
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
+      console.log('signInWithPassword result:', { data, error });
 
       if (error) throw error;
 
       set({ user: data.user, session: data.session });
+      console.log('Sign in successful.');
       return { success: true };
     } catch (error) {
       console.error('Sign in failed:', error);
@@ -84,6 +86,7 @@ export const useAuthStore = create((set, get) => ({
       return { success: false, error: error.message };
     } finally {
       set({ loading: false });
+      console.log('Sign in process finished. Loading state:', get().loading);
     }
   },
 

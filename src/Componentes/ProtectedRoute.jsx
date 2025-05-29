@@ -10,6 +10,8 @@ const ProtectedRoute = ({ children }) => {
     checkSession();
   }, [checkSession]);
 
+  console.log('ProtectedRoute render - loading:', loading, 'user:', user ? 'exists' : 'null');
+
   if (loading) {
     return (
       <div className="loading-container">
