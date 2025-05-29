@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthStore } from "../../store/authStore";
+import { supabase } from "../../lib/supabase";
 import "./PerfilUsuario.css";
 import { useNavigate } from "react-router-dom";
 
 export default function PerfilUsuario() {
-  const { signOut, loading } = useAuthStore();
+  const { signOut, loading: authLoading, user, profile, profileLoading, profileError } = useAuthStore();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
     console.log('*** handleSignOut called ***');
-    if (loading) {
+    if (authLoading) {
       console.log('*** handleSignOut: Already loading, preventing second call ***');
       return;
     }
@@ -34,9 +35,19 @@ export default function PerfilUsuario() {
           className="perfil-photo"
         />
         <p>
-          <strong>Nombre</strong>
-          <br />
-          Nombre telefono
+          {profileLoading ? (
+            'Cargando...'
+          ) : profileError ? (
+            `Error: ${profileError.message}`
+          ) : profile ? (
+            <>
+              <strong>{profile.nombre_usuario || user?.email}</strong>
+              <br />
+              {profile.nombre_telefono || 'No especificado'}
+            </>
+          ) : (
+            'No se pudo cargar la información del perfil.'
+          )}
         </p>
       </div>
 
@@ -64,9 +75,9 @@ export default function PerfilUsuario() {
         <button 
           className="cerrar-btn"
           onClick={handleSignOut}
-          disabled={loading}
+          disabled={authLoading}
         >
-          {loading ? 'Cerrando Sesion...' : 'Cerrar Sesion'}
+          {authLoading ? 'Cerrando Sesion...' : 'Cerrar Sesion'}
         </button>
       </div>
 

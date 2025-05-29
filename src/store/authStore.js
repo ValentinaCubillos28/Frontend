@@ -3,9 +3,13 @@ import { supabase } from '../lib/supabase';
 
 export const useAuthStore = create((set, get) => ({
   user: null,
+  userError: null,
   session: null,
   loading: true,
   error: null,
+  profile: null,
+  profileLoading: true,
+  profileError: null,
 
   setUser: (user) => set({ user }),
   setSession: (session) => set({ session }),
@@ -14,8 +18,8 @@ export const useAuthStore = create((set, get) => ({
 
   signUp: async (email, password, username) => {
     try {
-      set({ loading: true, error: null });
-      console.log('Attempting sign up...', { email, username });
+      set({ loading: true, userError: null, profileError: null });
+      console.log(`Attempting sign up for ${email} with username ${username}`);
       
       // Registrar usuario en auth
       const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -53,6 +57,7 @@ export const useAuthStore = create((set, get) => ({
         // User is automatically signed in (e.g., email confirmation is off)
         console.log('Sign up successful, user automatically signed in.');
         set({ user: authData.user, session: authData.session });
+        await get().fetchProfile(authData.user.id);
         return { success: true, needsEmailVerification: false };
       }
     } catch (error) {
@@ -66,8 +71,8 @@ export const useAuthStore = create((set, get) => ({
 
   signIn: async (email, password) => {
     try {
-      set({ loading: true, error: null });
-      console.log('Attempting sign in...', { email });
+      set({ loading: true, userError: null, profileError: null });
+      console.log(`Attempting sign in for ${email}`);
 
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
@@ -78,7 +83,8 @@ export const useAuthStore = create((set, get) => ({
       if (error) throw error;
 
       set({ user: data.user, session: data.session });
-      console.log('Sign in successful.');
+      await get().fetchProfile(data.user.id);
+      console.log('Sign in successful. User set in store.');
       return { success: true };
     } catch (error) {
       console.error('Sign in failed:', error);
@@ -127,15 +133,9 @@ export const useAuthStore = create((set, get) => ({
 
       if (session) {
         console.log('Session found, getting user...');
-        const { data: { user }, error: userError } = await supabase.auth.getUser();
-        console.log('getUser result:', { user, userError });
-        if (userError) {
-          console.error('Error getting user:', userError);
-          throw userError;
-        }
-        
-        set({ user, session });
+        set({ user: session.user, userError: null });
         console.log('User and session set in store.');
+        await get().fetchProfile(session.user.id);
       } else {
         set({ user: null, session: null });
         console.log('No active session found.');
@@ -146,6 +146,30 @@ export const useAuthStore = create((set, get) => ({
     } finally {
       set({ loading: false });
       console.log('checkSession finished. Loading state:', get().loading);
+    }
+  },
+
+  fetchProfile: async (userId) => {
+    if (!userId) {
+      set({ profile: null, profileLoading: false, profileError: null });
+      return;
+    }
+
+    set({ profileLoading: true, profileError: null });
+    console.log(`Fetching profile for user ID: ${userId}`);
+
+    const { data, error } = await supabase
+      .from('perfiles')
+      .select('nombre_usuario, email') // Ajusta los campos según tu tabla
+      .eq('id', userId)
+      .single();
+
+    if (error) {
+      console.error('Error fetching profile:', error);
+      set({ profile: null, profileError: error, profileLoading: false });
+    } else {
+      console.log('Profile fetched successfully:', data);
+      set({ profile: data, profileError: null, profileLoading: false });
     }
   }
 })); 

@@ -8,7 +8,12 @@ import './Inicio.css';
 
 const Inicio = () => {
   const navigate = useNavigate();
-  const { user } = useAuthStore();
+  const { user, profile, profileLoading } = useAuthStore();
+
+  console.log('Inicio component rendering.');
+  console.log('Inicio - user:', user);
+  console.log('Inicio - profile:', profile);
+  console.log('Inicio - profileLoading:', profileLoading);
 
   const handleSectionClick = (section) => {
     if (section === 'Jugadores') {
@@ -48,7 +53,12 @@ const Inicio = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, type: 'spring' }}
         >
-          BIENVENIDO {user?.user_metadata?.username || user?.email || 'Usuario'}
+          {profileLoading ? 
+            'Cargando perfil...' 
+            : profile?.nombre_usuario ? 
+              `BIENVENIDO ${profile.nombre_usuario}` 
+              : `BIENVENIDO ${user?.email || 'Usuario'}`
+          }
         </motion.h1>
 
         {/* Perfil */}
