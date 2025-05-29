@@ -10,10 +10,6 @@ const Inicio = () => {
   const navigate = useNavigate();
   const { user, profile, profileLoading } = useAuthStore();
 
-  console.log('Inicio component rendering.');
-  console.log('Inicio - user:', user);
-  console.log('Inicio - profile:', profile);
-  console.log('Inicio - profileLoading:', profileLoading);
 
   const handleSectionClick = (section) => {
     if (section === 'Jugadores') {
