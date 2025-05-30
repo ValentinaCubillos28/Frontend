@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAuthStore } from "../../store/authStore";
+import { supabase } from "../../lib/supabase";
 import "./PerfilUsuario.css";
+import { useNavigate } from "react-router-dom";
 
 export default function PerfilUsuario() {
+  const { signOut, loading: authLoading, user, profile, profileLoading, profileError } = useAuthStore();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    console.log('*** handleSignOut called ***');
+    if (authLoading) {
+      console.log('*** handleSignOut: Already loading, preventing second call ***');
+      return;
+    }
+    const result = await signOut();
+    if (result.success) {
+      console.log('Sign out successful, redirecting to login.');
+      navigate('/login');
+    }
+  };
+
   return (
     <div className="perfil-panel">
       <div className="menu-bar">
@@ -9,16 +28,26 @@ export default function PerfilUsuario() {
       </div>
 
       <div className="perfil-info">
-         <div class="titulo-usuario">USUARIO</div>
+         <div className="titulo-usuario">USUARIO</div>
         <img
           src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
           alt="Usuario"
           className="perfil-photo"
         />
         <p>
-          <strong>Nombre</strong>
-          <br />
-          Nombre telefono
+          {profileLoading ? (
+            'Cargando...'
+          ) : profileError ? (
+            `Error: ${profileError.message}`
+          ) : profile ? (
+            <>
+              <strong>{profile.nombre_usuario || user?.email}</strong>
+              <br />
+              {profile.nombre_telefono || 'No especificado'}
+            </>
+          ) : (
+            'No se pudo cargar la información del perfil.'
+          )}
         </p>
       </div>
 
@@ -43,7 +72,13 @@ export default function PerfilUsuario() {
       </div>
 
       <div className="cerrar-section">
-        <button className="cerrar-btn">Cerrar Sesion</button>
+        <button 
+          className="cerrar-btn"
+          onClick={handleSignOut}
+          disabled={authLoading}
+        >
+          {authLoading ? 'Cerrando Sesion...' : 'Cerrar Sesion'}
+        </button>
       </div>
 
       <div className="footer">@football Fantasy</div>

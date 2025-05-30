@@ -1,0 +1,81 @@
+.email-verificado-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: #fff;
+  padding: 2rem;
+}
+
+.email-verificado-container {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 3rem;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.icon-container {
+  margin-bottom: 1.5rem;
+}
+
+.success-icon {
+  color: #4CAF50; /* Verde para el éxito */
+}
+
+.email-verificado-container h2 {
+  font-size: 1.8rem;
+  color: #4CAF50; /* Verde */
+  margin-bottom: 1rem;
+}
+
+.email-verificado-container p {
+  font-size: 1rem;
+  color: #ccc; /* Gris claro */
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.btn-ir-login {
+  background: linear-gradient(45deg, #4CAF50, #45a049); /* Degradado verde */
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-ir-login:hover {
+  background: linear-gradient(45deg, #45a049, #4CAF50); /* Invertir degradado */
+  transform: translateY(-2px); /* Pequeño levantamiento */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 600px) {
+  .email-verificado-container {
+    padding: 2rem;
+  }
+
+  .email-verificado-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .email-verificado-container p {
+    font-size: 0.9rem;
+  }
+
+  .btn-ir-login {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+} 

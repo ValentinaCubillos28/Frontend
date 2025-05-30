@@ -2,7 +2,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 /* Contenedor principal */
@@ -13,35 +13,63 @@ html, body {
   height: 100vh;
   margin: 0;
   padding: 0;
+  background-color: #f4f6f8; /* Color de fallback si la imagen no carga */
+  background-image: url('../../assets/background-landing.jpg'); /* **CAMBIA ESTA RUTA por la de tu imagen** */
+  background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  position: relative; /* Necesario para posicionar el overlay */
+  overflow: hidden; /* Oculta cualquier parte de la imagen que se salga */
+}
+
+/* Overlay semi-transparente sobre el fondo */
+.inicio::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro semi-transparente */
+    z-index: 1; /* Asegura que el overlay esté sobre la imagen pero debajo del contenido */
+}
+
+/* Asegura que el contenido esté por encima del overlay */
+.inicio > * {
+    position: relative;
+    z-index: 2;
 }
 
 /* Header principal */
 .inicio-header {
   background-color: #4CAF50;
   color: white;
-  padding: 20px;
+  padding: 15px 30px;
   text-align: right;
   width: 100vw;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header-button {
-  background-color: #33aa33;
+  background-color: #388E3C;
   color: white;
   border: none;
-  padding: 10px 20px;
-  margin: 5px;
+  padding: 8px 15px;
+  margin: 0 5px;
   border-radius: 5px;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  font-size: 0.9rem;
 }
 
 .header-button:hover {
-  background-color: #2a8c2a;
+  background-color: #2E7D32;
+  transform: translateY(-2px);
 }
 
 .header-spacing {
-  margin: 0 20px;
+  margin: 0 15px;
 }
 
 /* Contenido principal */
@@ -50,45 +78,56 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  background-color: #f5f5f5;
+  padding: 30px 20px;
+  background-color: #f4f6f8;
 }
 
 /* Título de bienvenida */
 .welcome-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin: 20px 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 10px 0 30px 0;
   color: #333;
+  text-align: center;
 }
 
 /* Perfil del usuario */
 .profile {
   text-align: center;
-  margin: 20px 0;
+  margin: 0 0 30px 0;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
 }
 
 .profile-img {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  border: 5px solid #4CAF50;
-  margin-bottom: 10px;
+  border: 4px solid #4CAF50;
+  margin-bottom: 15px;
+  object-fit: cover;
 }
 
 .profile-text {
-  margin: 5px 0;
-  color: #333;
+  margin: 8px 0;
+  color: #555;
+  font-size: 1rem;
 }
 
 .points {
-  font-weight: bold;
-  font-size: 1.1rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #388E3C;
 }
 
 .reminder {
   font-size: 0.9rem;
   color: #666;
+  font-style: italic;
 }
 
 /* Imágenes placeholder */
@@ -96,117 +135,122 @@ html, body {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin: 30px 0 20px 0;
+  margin: 0 0 30px 0;
   width: 100%;
   max-width: 800px;
+  flex-wrap: wrap;
 }
 
 .placeholder-box {
-  width: 200px;
-  height: 120px;
+  width: 180px;
+  height: 100px;
   background-color: #e0e0e0;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #999;
+  color: #777;
   font-size: 0.9rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Secciones principales */
 .sections {
   display: flex;
   justify-content: center;
-  gap: 30px;
-  margin: 20px 0;
+  gap: 20px;
+  margin: 0 0 30px 0;
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
+  flex-wrap: wrap;
 }
 
 .section {
   flex: 1;
+  min-width: 200px;
   text-align: center;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.section:hover {
+  transform: translateY(-5px);
 }
 
 .section-button {
-  background-color: #2e7d32;
+  background-color: #388E3C;
   color: white;
-  padding: 12px;
+  padding: 12px 20px;
   border-radius: 25px;
-  font-weight: bold;
-  margin: 0 0 15px 0;
+  font-weight: 600;
+  margin: 0;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease, transform 0.1s ease;
   border: none;
   width: 100%;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .section-button:hover {
-  background-color: #1b5e20;
+  background-color: #2E7D32;
 }
 
-.section-content {
-  padding: 10px;
-}
-
-.section-lines {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.section-line {
-  height: 8px;
-  background-color: #ddd;
-  border-radius: 4px;
+/* Estilos para los íconos en los botones */
+.button-icon {
+  margin-right: 8px; /* Espacio entre el ícono y el texto */
+  vertical-align: middle; /* Alinea el ícono verticalmente con el texto */
+  font-size: 1.2rem; /* Tamaño del ícono */
 }
 
 /* Jugadores destacados */
 .jugadores-destacados {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px;
-  margin-top: 30px;
+  margin-top: 10px;
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
 }
 
 .jugador-card {
-  background-color: #4CAF50;
+  background-color: #ffffff;
   padding: 15px;
   border-radius: 10px;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
   cursor: pointer;
 }
 
 .jugador-card:hover {
-  transform: scale(1.03);
+  transform: translateY(-5px);
 }
 
 .jugador-img {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border-radius: 8px;
   margin-bottom: 10px;
-  background-color: #ddd;
+  background-color: #e0e0e0;
+  object-fit: cover;
 }
 
 .jugador-button {
-  background-color: #333;
+  background-color: #4CAF50;
   color: white;
-  padding: 10px 20px;
+  padding: 8px 15px;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
 .jugador-button:hover {
-  background-color: #111;
+  background-color: #388E3C;
 }
 
 /* Footer */
@@ -214,7 +258,111 @@ html, body {
   background-color: #4CAF50;
   color: white;
   text-align: center;
-  padding: 20px;
+  padding: 15px;
   font-size: 0.9rem;
   margin-top: auto;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* -------------------- Responsive Design -------------------- */
+@media (max-width: 768px) {
+  .inicio-header {
+    padding: 10px 20px; /* Reducir padding del header */
+    text-align: center; /* Centrar botones en pantallas pequeñas */
+  }
+
+  .header-button {
+    margin: 5px; /* Añadir margen entre botones apilados */
+    font-size: 0.8rem; /* Reducir tamaño de fuente */
+    padding: 6px 10px; /* Reducir padding */
+  }
+
+  .main-content {
+    padding: 20px 10px; /* Reducir padding del contenido principal */
+  }
+
+  .welcome-title {
+    font-size: 1.8rem; /* Reducir tamaño del título */
+    margin: 15px 0 20px 0; /* Ajustar margen */
+  }
+
+  .profile {
+    max-width: 300px; /* Reducir ancho máximo del perfil */
+    padding: 15px; /* Reducir padding */
+  }
+
+  .profile-img {
+    width: 80px; /* Reducir tamaño de imagen de perfil */
+    height: 80px; /* Reducir tamaño de imagen de perfil */
+    border-width: 3px; /* Reducir borde */
+  }
+
+  .profile-text {
+    font-size: 0.9rem; /* Reducir tamaño de fuente */
+  }
+
+  .points {
+    font-size: 1rem; /* Reducir tamaño de fuente */
+  }
+
+  .reminder {
+    font-size: 0.8rem; /* Reducir tamaño de fuente */
+  }
+
+  .placeholder-images {
+    flex-direction: column; /* Apilar imágenes placeholder */
+    align-items: center; /* Centrar imágenes apiladas */
+    gap: 15px; /* Reducir espacio */
+  }
+
+  .placeholder-box {
+    width: 90%; /* Permitir que ocupen más ancho */
+    max-width: 250px; /* Pero no más de un ancho razonable */
+    height: 80px; /* Ajustar alto */
+  }
+
+  .sections {
+    flex-direction: column; /* Apilar secciones */
+    gap: 15px; /* Reducir espacio */
+    max-width: 300px; /* Ancho máximo para las secciones apiladas */
+  }
+
+  .section {
+    width: 100%; /* Ocupar todo el ancho disponible al apilar */
+    padding: 15px; /* Reducir padding */
+  }
+
+  .section-button {
+    font-size: 1rem; /* Reducir tamaño de fuente */
+    padding: 10px 15px; /* Reducir padding */
+  }
+
+  .jugadores-destacados {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Ajustar tamaño mínimo de columna */
+    gap: 15px; /* Reducir espacio */
+  }
+
+  .jugador-card {
+    padding: 10px; /* Reducir padding */
+  }
+
+  .jugador-img {
+    width: 70px; /* Reducir tamaño de imagen de jugador */
+    height: 70px; /* Reducir tamaño de imagen de jugador */
+  }
+
+  .jugador-button {
+    font-size: 0.8rem; /* Reducir tamaño de fuente */
+    padding: 6px 10px; /* Reducir padding */
+  }
+
+  .button-icon {
+      font-size: 1rem; /* Reducir tamaño del ícono en botones */
+      margin-right: 5px; /* Reducir margen */
+  }
+
+  .inicio-footer {
+    padding: 10px; /* Reducir padding del footer */
+    font-size: 0.8rem; /* Reducir tamaño de fuente */
+  }
 }

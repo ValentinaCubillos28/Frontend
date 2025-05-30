@@ -1,19 +1,23 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; 
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; 
+import { motion } from 'framer-motion';
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 import './style.css';
 
 const Login = () => {
-  const navigate = useNavigate(); 
-
-  const handleLogin = () => {
-    navigate('/Inicio'); 
-  };
+  console.log('*** Login container component rendered ***');
+  const [isRegistering, setIsRegistering] = useState(false);
 
   return (
     <div className="contenedor">
       <header>
         <Link to="/" className="logo">
-          <div className="ball" />
+          <motion.div 
+            className="ball"
+            whileHover={{ scale: 1.1, rotate: 360 }}
+            transition={{ duration: 0.5 }}
+          />
         </Link>
         <div className="menu">
           <span>AYUDA</span>
@@ -23,32 +27,28 @@ const Login = () => {
 
       <main>
         <div className="form-container">
-          <div className="login-box">
-            <div className="icon-user" />
-            <h2>INICIAR SESION</h2>
-            <input type="text" placeholder="Nombre de Usuario" />
-            <input type="password" placeholder="Contraseña" />
-            <label className="remember-me">
-              <input type="checkbox" />
-              Recuérdame
-            </label>
-            <button className="btn" onClick={handleLogin}>INGRESAR</button>
-            <a href="#" className="link">olvido usuario/contraseña</a>
-          </div>
-
-          <div className="register-box">
-            <h2>REGISTRO</h2>
-            <input type="text" placeholder="Nombre de Usuario" />
-            <input type="email" placeholder="E-mail" />
-            <input type="password" placeholder="Contraseña" />
-            <input type="password" placeholder="Confirme su Contraseña" />
-            <button className="btn">INGRESAR</button>
-          </div>
+          {isRegistering ? (
+            <RegisterForm />
+          ) : (
+            <LoginForm />
+          )}
         </div>
+        <button 
+          className="toggle-form-button"
+          onClick={() => setIsRegistering(!isRegistering)}
+        >
+          {isRegistering ? '¿Ya tienes cuenta? Inicia Sesión' : '¿No tienes cuenta? Regístrate'}
+        </button>
       </main>
 
       <footer>
-        ©Football Fantasy
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+        >
+          ©Football Fantasy
+        </motion.div>
       </footer>
     </div>
   );
