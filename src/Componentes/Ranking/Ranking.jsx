@@ -1,35 +1,66 @@
-import React from 'react';
-import './Ranking.css';
+import React, { useEffect, useState } from "react";
+import "./Ranking.css";
 
 const equipos = [
-  { nombre: "Los Galácticos", puntos: 1250, variacion: 25, imagen: "los_galacticos.png" },
-  { nombre: "Los Invencibles", puntos: 1200, variacion: -10, imagen: "los_invencibles.png" },
-  { nombre: "Los Titanes", puntos: 1180, variacion: 15, imagen: "los_titanes.png" },
-  { nombre: "Los Gladiadores", puntos: 1150, variacion: 5, imagen: "los_gladiadores.png" },
-  { nombre: "Los Leones", puntos: 1120, variacion: 30, imagen: "los_leones.png" },
-  { nombre: "Los Fénix", puntos: 1100, variacion: -5, imagen: "los_fenix.png" },
-  { nombre: "Los Guerreros", puntos: 1080, variacion: 10, imagen: "los_guerreros.png" },
-  { nombre: "Los Reyes", puntos: 1050, variacion: 20, imagen: "los_reyes.png" },
-  { nombre: "Los Cracks", puntos: 1030, variacion: -12, imagen: "los_cracks.png" },
-  { nombre: "Los Ases", puntos: 1000, variacion: 8, imagen: "los_ases.png" },
+  "Barcelona", "Real Madrid", "Arsenal", "Manchester United",
+  "Juventus", "Bayern Munich", "PSG", "Chelsea", "Liverpool", "Inter"
 ];
 
 export default function Ranking() {
+  const [ranking, setRanking] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchRanking() {
+      let jugadores = [];
+
+      for (const equipo of equipos) {
+        try {
+          const res = await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?t=${encodeURIComponent(equipo)}`);
+          const data = await res.json();
+          if (data.player) {
+            // Selecciona un jugador aleatorio del equipo
+            const jugador = data.player[Math.floor(Math.random() * data.player.length)];
+            jugadores.push({
+              nombre: jugador.strPlayer,
+              imagen: jugador.strCutout || jugador.strThumb || "https://cdn-icons-png.flaticon.com/512/847/847969.png",
+              equipo,
+              puntos: Math.floor(Math.random() * 1500), // Puntaje aleatorio
+              variacion: Math.floor(Math.random() * 51) - 25 // Entre -25 y +25
+            });
+          }
+        } catch (error) {
+          console.error("Error al obtener datos de la API", error);
+        }
+      }
+
+      // Ordenar por puntaje
+      jugadores.sort((a, b) => b.puntos - a.puntos);
+      setRanking(jugadores.slice(0, 10)); // Solo top 10
+      setLoading(false);
+    }
+
+    fetchRanking();
+  }, []);
+
+  if (loading) return <div className="ranking-container">Cargando ranking...</div>;
+
   return (
     <div className="ranking-container">
-      <h2>Página 6: Ranking de Usuarios</h2>
-      <p>Tabla de posiciones de los 10 mejores usuarios.</p>
+      <h2>Ranking de Jugadores</h2>
+      <p>Top 10 jugadores aleatorios por equipo con puntajes ficticios.</p>
 
       <div className="ranking-list">
-        {equipos.map((equipo, index) => (
+        {ranking.map((jugador, index) => (
           <div key={index} className={`ranking-item ${index === 0 ? 'top-team' : ''}`}>
-            <img src={`/img/${equipo.imagen}`} alt={equipo.nombre} className="team-icon" />
+            <img src={jugador.imagen} alt={jugador.nombre} className="team-icon" />
             <div className="ranking-info">
-              <strong>{equipo.nombre}</strong>
-              <span>{equipo.puntos} Pts</span>
+              <strong>{jugador.nombre}</strong> <br />
+              <small>{jugador.equipo}</small>
+              <span>{jugador.puntos} Pts</span>
             </div>
-            <div className={`ranking-change ${equipo.variacion >= 0 ? 'up' : 'down'}`}>
-              {equipo.variacion >= 0 ? `▲ ${equipo.variacion}` : `▼ ${Math.abs(equipo.variacion)}`}
+            <div className={`ranking-change ${jugador.variacion >= 0 ? 'up' : 'down'}`}>
+              {jugador.variacion >= 0 ? `▲ ${jugador.variacion}` : `▼ ${Math.abs(jugador.variacion)}`}
             </div>
           </div>
         ))}
