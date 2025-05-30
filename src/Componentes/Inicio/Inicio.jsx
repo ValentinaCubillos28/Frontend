@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaUser, FaCog, FaQuestionCircle, FaUsers, FaTrophy, FaFutbol } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore';
+import ChatMessages from '../Mensajes/ChatMessages';
 import './Inicio.css';
 
 const Inicio = () => {
@@ -43,6 +44,8 @@ const Inicio = () => {
 
       {/* Contenido principal */}
       <div className="main-content">
+        <ChatMessages />
+
         <motion.h1 
           className="welcome-title"
           initial={{ opacity: 0, y: -40 }}

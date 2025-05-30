@@ -13,6 +13,7 @@ import PlayerPanel from './Componentes/Futbol/PlayerPanel';
 import ProtectedRoute from './Componentes/ProtectedRoute';
 import VerificarEmail from './Componentes/VerificarEmail';
 import EmailVerificado from './Componentes/EmailVerificado';
+import ChatMessages from './Componentes/Mensajes/ChatMessages';
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/Ranking" element={<Ranking />} />
         <Route path="/Perfil" element={<PerfilUsuario />} />
         <Route path="/PlayerPanel" element={<PlayerPanel />} />
+        <Route path="/chat" element={<ProtectedRoute><ChatMessages /></ProtectedRoute>} />
       </Routes>
     </Router>
   );
