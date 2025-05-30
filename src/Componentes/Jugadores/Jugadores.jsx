@@ -1,32 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Jugadores.css';
 
-const jugadores = [
-  { nombre: "bufon", imagen: "bufon.jpg" },
-  { nombre: "cr7", imagen: "cr7.jpg" },
-  { nombre: "croz", imagen: "croz.jpg" },
-  { nombre: "henry", imagen: "henry.jpg" },
-  { nombre: "iniesta", imagen: "iniesta.jpg" },
-  { nombre: "kaka", imagen: "kaka.jpg" },
-  { nombre: "lampard", imagen: "lampard.jpg" },
-  { nombre: "lewandoskli", imagen: "lewandoskli.jpg" },
-  { nombre: "maldini", imagen: "maldini.jpg" },
-  { nombre: "mbape", imagen: "mbape.jpg" },
-  { nombre: "messi", imagen: "messi.jpg" },
-  { nombre: "modric", imagen: "modric.jpg" },
-  { nombre: "neymar", imagen: "neymar.jpg" },
-  { nombre: "pirlo", imagen: "pirlo.jpg" },
-  { nombre: "ramos", imagen: "ramos.jpg" },
-  { nombre: "ronaldinho", imagen: "ronaldinho.jpg" },
-  { nombre: "stiven gerard", imagen: "stiven gerard.jpg" },
-  { nombre: "xavi", imagen: "xavi.jpg" },
-  { nombre: "zidane", imagen: "zidane.jpg" },
-];
-
 export default function Jugadores() {
+  const [jugadores, setJugadores] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [seleccionados, setSeleccionados] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    obtenerTodosLosJugadores();
+  }, []);
+
+  const obtenerTodosLosJugadores = async () => {
+  try {
+    setLoading(true);
+
+    const equiposPopulares = [
+      'Barcelona', 'Real Madrid', 'Manchester United', 'Manchester City',
+      'Liverpool', 'Chelsea', 'Arsenal', 'Bayern Munich', 'Paris Saint-Germain',
+      'Juventus', 'AC Milan', 'Inter Milan', 'Atletico Madrid'
+    ];
+
+    console.log('Cargando jugadores en paralelo...');
+
+    const fetches = equiposPopulares.map(equipo =>
+      fetch(`https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?t=${encodeURIComponent(equipo)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.player && data.player.length > 0) {
+            return data.player.map(jugador => ({
+              id: jugador.idPlayer,
+              nombre: jugador.strPlayer,
+              imagen: jugador.strThumb || jugador.strCutout || '/img/default-player.jpg',
+              posicion: jugador.strPosition,
+              equipo: jugador.strTeam,
+              nacionalidad: jugador.strNationality,
+              fechaNacimiento: jugador.dateBorn,
+              descripcion: jugador.strDescriptionEN,
+              peso: jugador.strWeight,
+              altura: jugador.strHeight,
+              goles: jugador.strGoals || '0',
+              facebook: jugador.strFacebook,
+              twitter: jugador.strTwitter,
+              instagram: jugador.strInstagram,
+              deporte: jugador.strSport
+            }));
+          }
+          return [];
+        })
+        .catch(err => {
+          console.warn(`Error con ${equipo}:`, err);
+          return [];
+        })
+    );
+
+    const resultados = await Promise.allSettled(fetches);
+    const jugadoresData = resultados.flatMap(r => (r.status === 'fulfilled' ? r.value : []));
+
+    const jugadoresUnicos = jugadoresData.filter(
+      (jugador, index, self) =>
+        index === self.findIndex(j => j.id === jugador.id)
+    );
+
+    console.log(`Jugadores cargados: ${jugadoresUnicos.length}`);
+    setJugadores(jugadoresUnicos);
+    setLoading(false);
+
+  } catch (error) {
+    console.error('Error general al cargar jugadores:', error);
+    setError('No se pudo cargar la lista de jugadores.');
+    setLoading(false);
+  }
+};
 
   const toggleJugador = (nombre) => {
     setSeleccionados((prev) =>
@@ -44,21 +91,54 @@ export default function Jugadores() {
 
   const confirmarEquipo = () => {
     if (seleccionados.length === 5) {
-      localStorage.setItem('miEquipo', JSON.stringify(seleccionados));
+      const equipoCompleto = jugadores.filter(j => seleccionados.includes(j.nombre));
+      localStorage.setItem('miEquipo', JSON.stringify(equipoCompleto));
       navigate('/miequipo');
     } else {
       alert('Debes seleccionar exactamente 5 jugadores.');
     }
   };
 
+  if (loading) {
+    return (
+      <div className="jugadores-container">
+        <div className="loading-container">
+          <h2>Cargando todos los jugadores...</h2>
+          <div className="loading-spinner"></div>
+          <p>Obteniendo datos desde TheSportsDB</p>
+          <p className="loading-detail">Esto puede tomar un momento...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="jugadores-container">
+        <div className="error-container">
+          <h2>Error</h2>
+          <p>{error}</p>
+          <button onClick={() => window.location.reload()}>
+            Intentar de nuevo
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="jugadores-container">
       <h2>Selección de Jugadores</h2>
       <p>Selecciona a tus 5 jugadores favoritos para tu equipo fantasy.</p>
       
+      <div className="info-container">
+        <p className="contador">{seleccionados.length}/5 jugadores seleccionados</p>
+        <p className="total-jugadores">Total disponible: {jugadores.length} jugadores</p>
+      </div>
+      
       <div className="grid">
         {jugadores.map((j) => (
-          <div key={j.nombre} className={`jugador-card ${seleccionados.includes(j.nombre) ? 'seleccionado' : ''}`}>
+          <div key={j.id} className={`jugador-card ${seleccionados.includes(j.nombre) ? 'seleccionado' : ''}`}>
             
             <div
               className="star"
@@ -69,17 +149,31 @@ export default function Jugadores() {
             ></div>
 
             <div className="imagen-container" onClick={() => irAPlayerPanel(j)}>
-              <img src={`/img/${j.imagen}`} alt={j.nombre} />
+              <img 
+                src={j.imagen} 
+                alt={j.nombre}
+                onError={(e) => {
+                  e.target.src = '/img/default-player.jpg';
+                }}
+              />
             </div>
 
-            <p>{j.nombre}</p>
+            <div className="jugador-info">
+              <p className="nombre">{j.nombre}</p>
+              {j.posicion && <p className="posicion">{j.posicion}</p>}
+              {j.equipo && <p className="equipo">{j.equipo}</p>}
+              {j.nacionalidad && <p className="nacionalidad">{j.nacionalidad}</p>}
+            </div>
           </div>
         ))}
       </div>
       
-      <p className="contador">{seleccionados.length}/5 jugadores seleccionados</p>
-      <button className="confirmar-btn" onClick={confirmarEquipo}>
-        Confirmar equipo
+      <button 
+        className="confirmar-btn" 
+        onClick={confirmarEquipo}
+        disabled={seleccionados.length !== 5}
+      >
+        Confirmar equipo ({seleccionados.length}/5)
       </button>
     </div>
   );
