@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useAuthStore } from "../../store/authStore";
-import { supabase } from "../../lib/supabase";
-import "./PerfilUsuario.css";
 import { useNavigate } from "react-router-dom";
+import "./PerfilUsuario.css";
 
 export default function PerfilUsuario() {
-  const { signOut, loading: authLoading, user, profile, profileLoading, profileError } = useAuthStore();
+  const {
+    signOut,
+    loading: authLoading,
+    user,
+    profile,
+    profileLoading,
+    profileError
+  } = useAuthStore();
+
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    console.log('*** handleSignOut called ***');
-    if (authLoading) {
-      console.log('*** handleSignOut: Already loading, preventing second call ***');
-      return;
-    }
+    if (authLoading) return;
     const result = await signOut();
     if (result.success) {
-      console.log('Sign out successful, redirecting to login.');
-      navigate('/login');
+      navigate("/login");
     }
   };
 
@@ -28,7 +30,7 @@ export default function PerfilUsuario() {
       </div>
 
       <div className="perfil-info">
-         <div className="titulo-usuario">USUARIO</div>
+        <div className="titulo-usuario">USUARIO</div>
         <img
           src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
           alt="Usuario"
@@ -36,48 +38,30 @@ export default function PerfilUsuario() {
         />
         <p>
           {profileLoading ? (
-            'Cargando...'
+            "Cargando..."
           ) : profileError ? (
             `Error: ${profileError.message}`
           ) : profile ? (
             <>
-              <strong>{profile.nombre_usuario || user?.email}</strong>
+              <strong>Usuario:</strong> {profile.nombre_usuario || user?.email}
               <br />
-              {profile.nombre_telefono || 'No especificado'}
+              <strong>Email:</strong> {user?.email}
+              <br />
+              <strong>Teléfono:</strong> {profile.nombre_telefono || "No especificado"}
             </>
           ) : (
-            'No se pudo cargar la información del perfil.'
+            "No se pudo cargar la información del perfil."
           )}
         </p>
       </div>
 
-      <div className="historial-section">
-        <h3>Historial</h3>
-        <table className="historial-table">
-          <thead>
-            <tr>
-              <th>Semanas</th>
-              <th>Puntajes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[1, 2, 3, 4].map((semana) => (
-              <tr key={semana}>
-                <td>Semana {semana}</td>
-                <td>0000</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
       <div className="cerrar-section">
-        <button 
+        <button
           className="cerrar-btn"
           onClick={handleSignOut}
           disabled={authLoading}
         >
-          {authLoading ? 'Cerrando Sesion...' : 'Cerrar Sesion'}
+          {authLoading ? "Cerrando Sesión..." : "Cerrar Sesión"}
         </button>
       </div>
 

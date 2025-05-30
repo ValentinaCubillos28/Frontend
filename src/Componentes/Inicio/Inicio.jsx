@@ -43,34 +43,38 @@ const Inicio = () => {
 
       {/* Contenido principal */}
       <div className="main-content">
-        <motion.h1 
+        <motion.h1
           className="welcome-title"
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, type: 'spring' }}
         >
-          {profileLoading ? 
-            'Cargando perfil...' 
-            : profile?.nombre_usuario ? 
-              `BIENVENIDO ${profile.nombre_usuario}` 
+          {profileLoading ?
+            'Cargando perfil...'
+            : profile?.nombre_usuario ?
+              `BIENVENIDO ${profile.nombre_usuario}`
               : `BIENVENIDO ${user?.email || 'Usuario'}`
           }
         </motion.h1>
 
         {/* Perfil */}
-        <motion.div 
+        {/* Perfil */}
+        <motion.div
           className="profile"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
           <img src={profileImageSvg} alt="Perfil" className="profile-img" />
-          <p className="profile-text points">Tus puntos acumulados: XXXXXX</p>
+          <p className="profile-text points">
+            Tus puntos acumulados: {profile?.total_puntos_equipo ?? 'Cargando...'}
+          </p>
           <p className="profile-text reminder">RECUERDA HACER CAMBIOS ANTES DE XX-XX-XXXX</p>
         </motion.div>
 
+
         {/* Imágenes placeholder */}
-        <motion.div 
+        <motion.div
           className="placeholder-images"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -82,15 +86,15 @@ const Inicio = () => {
         </motion.div>
 
         {/* Secciones */}
-        <motion.div 
+        <motion.div
           className="sections"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.6 }}
         >
           <div className="section">
-            <motion.button 
-              className="section-button" 
+            <motion.button
+              className="section-button"
               onClick={() => handleSectionClick('MiEquipo')}
               whileHover={{ scale: 1.07, boxShadow: '0px 4px 20px rgba(30,80,30,0.15)' }}
               whileTap={{ scale: 0.97 }}
@@ -100,8 +104,8 @@ const Inicio = () => {
           </div>
 
           <div className="section">
-            <motion.button 
-              className="section-button" 
+            <motion.button
+              className="section-button"
               onClick={() => handleSectionClick('Ranking')}
               whileHover={{ scale: 1.07, boxShadow: '0px 4px 20px rgba(30,80,30,0.15)' }}
               whileTap={{ scale: 0.97 }}
@@ -111,8 +115,8 @@ const Inicio = () => {
           </div>
 
           <div className="section">
-            <motion.button 
-              className="section-button" 
+            <motion.button
+              className="section-button"
               onClick={() => handleSectionClick('Jugadores')}
               whileHover={{ scale: 1.07, boxShadow: '0px 4px 20px rgba(30,80,30,0.15)' }}
               whileTap={{ scale: 0.97 }}
@@ -123,13 +127,13 @@ const Inicio = () => {
         </motion.div>
 
         {/* Jugadores destacados */}
-        <motion.div 
+        <motion.div
           className="jugadores-destacados"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.8 }}
         >
-          <motion.div 
+          <motion.div
             className="jugador-card"
             whileHover={{ scale: 1.05, boxShadow: '0px 4px 20px rgba(30,80,30,0.15)' }}
             whileTap={{ scale: 0.97 }}
@@ -137,7 +141,7 @@ const Inicio = () => {
             <img src={playerImageSvg} alt="Jugador" className="jugador-img" />
             <button className="jugador-button" onClick={() => handlePlayerClick(1)}>Button</button>
           </motion.div>
-          <motion.div 
+          <motion.div
             className="jugador-card"
             whileHover={{ scale: 1.05, boxShadow: '0px 4px 20px rgba(30,80,30,0.15)' }}
             whileTap={{ scale: 0.97 }}
@@ -145,7 +149,7 @@ const Inicio = () => {
             <img src={playerImageSvg} alt="Jugador" className="jugador-img" />
             <button className="jugador-button" onClick={() => handlePlayerClick(2)}>Button</button>
           </motion.div>
-          <motion.div 
+          <motion.div
             className="jugador-card"
             whileHover={{ scale: 1.05, boxShadow: '0px 4px 20px rgba(30,80,30,0.15)' }}
             whileTap={{ scale: 0.97 }}
